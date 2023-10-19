@@ -1,0 +1,384 @@
+@font-face {
+  font-family: "Baloo Bhaijaan 2";
+  src: url("/assets/fonts/BalooBhaijaan2-Regular.ttf");
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Baloo Bhaijaan 2";
+  src: url("/assets/fonts/BalooBhaijaan2-Medium.ttf");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Baloo Bhaijaan 2";
+  src: url("/assets/fonts/BalooBhaijaan2-SemiBold.ttf");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Gochi Hand";
+  src: url("/assets/fonts/GochiHand-Regular.ttf");
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  input,
+  textarea,
+  button,
+  select,
+  a {
+      -webkit-tap-highlight-color: transparent;
+  }
+
+  .gradient-to-r {
+    @apply bg-gradient-to-r from-secondary to-primary;
+  }
+  .gradient-to-l {
+    @apply bg-gradient-to-l from-secondary to-primary;
+  }
+  .gradient-to-b {
+    @apply bg-gradient-to-b from-secondary to-primary;
+  }
+  .line-bg {
+    background-size: 32px 29px;
+    line-height: 1.7rem;
+    background-image: repeating-linear-gradient(0deg, #C3C3C3, #C3C3C3 1px, transparent 1px, transparent);
+  }
+  .dot-bg {
+    background-image: radial-gradient(#e0e0e0 10%, transparent 11%),
+      radial-gradient(#e0e0e0 10%, transparent 11%);
+    background-size: 20px 20px;
+    background-position: 0 0;
+    background-repeat: repeat;
+  }
+}
+
+@layer components {
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+
+  input[type=range] {
+    @apply w-full h-5 bg-transparent rounded-tl-lg appearance-none cursor-pointer rounded-br-xl rounded-tr-md ring-1 ring-tertiary ring-inset border-tertiary rounded-bl-md;
+
+    &::-webkit-slider-thumb {
+      @apply w-10 h-10 transition-all rounded-full shadow-lg appearance-none ring-0;
+      background: url("/assets/water-drop.svg") no-repeat center #fff;
+      background-size: 55%;
+      &:hover {
+        background: url("/assets/water-drop-white.svg") no-repeat center #5AC596;
+        background-size: 55%;
+      }
+    }
+  }
+
+  .nav {
+    @apply relative flex h-14 bg-white border rounded-full border-tertiary/10 justify-stretch z-40 p-[2px];
+    box-shadow: 0px 0.4px 0.5px hsl(154deg 43% 70% / 0.1),
+      0px 1.5px 1.7px -0.8px hsl(154deg 43% 70% / 0.1),
+      0px 3.7px 4.2px -1.7px hsl(154deg 43% 70% / 0.1),
+      0px 8.9px 10px -2.5px hsl(154deg 43% 70% / 0.1);
+
+    & .active-bg {
+      @apply block absolute top-[1px] w-24 rounded-full shadow-sm -z-10 left-[1px] gradient-to-r;
+      transform-origin: 0 0;
+      transition: transform 0.25s;
+      height: calc(100% - 2px);
+    }
+
+    &:not(:has(.active)) .active-bg {
+      @apply hidden;
+    }
+  
+    & > a {
+      @apply relative flex flex-col items-center justify-center w-24 transition-all rounded-full outline-none font-body;
+
+      & span {
+        @apply text-2xl font-display text-secondary;
+      }
+
+      & p {
+        @apply font-medium text-tertiary;
+      }
+
+      & p, & span {
+        @apply leading-none transition-all;
+      }
+  
+      &.active p, &.active span {
+        @apply font-normal text-white;
+      }
+
+      &:focus-visible {
+        @apply ring-2 ring-primary ring-inset;
+      }
+
+      &:hover:not(.active) span {
+        @apply text-primary;
+      }
+  
+      &:first-child.active ~ .active-bg {
+        transform: translateX(1%);
+      }
+      &:nth-child(2).active ~ .active-bg {
+        transform: translateX(101%);
+      }
+      &:nth-child(3).active ~ .active-bg {
+        transform: translateX(201%);
+      }
+    }
+  }
+
+  .custom-scrollbar {
+    &::-webkit-scrollbar {
+      width: 3px;
+    }
+    
+    /* Track */
+    &::-webkit-scrollbar-track {
+      border-radius: 3px;
+    }
+     
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: currentColor;
+      border-radius: 3px;
+    }
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .day-layout {
+    display: grid;
+    grid-template-areas:
+      'header header'
+      'date routine'
+      'hoursleep routine'
+      'todos todos'
+      'grateful grateful'
+      'literswater literswater'
+      'mood mood'
+      'affirmation affirmation';
+    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  #header {
+    grid-area: header;
+  }
+  #date {
+    grid-area: date;
+  }
+  #routine {
+    grid-area: routine;
+  }
+  #todos {
+    grid-area: todos;
+  }
+  #hoursleep {
+    grid-area: hoursleep;
+  }
+  #grateful {
+    grid-area: grateful;
+  }
+  #literswater {
+    grid-area: literswater;
+  }
+  #mood {
+    grid-area: mood;
+  }
+  #affirmation {
+    grid-area: affirmation;
+  }
+
+  .emoji-active {
+    @apply relative -z-10;
+
+    &:before {
+      content: "";
+      left: -24px;
+      z-index: -1;
+      background-size: 85px 85px;
+      background-image: url('/assets/splash.svg');
+      @apply absolute w-[85px] h-[85px] -top-7;
+    }
+
+    & svg {
+      @apply w-8;
+    }
+
+    & svg * {
+      @apply fill-white;
+    }
+  }
+
+  .emoji-splash {
+    @apply relative z-0;
+
+    &:before {
+      content: "";
+      left: -24px;
+      z-index: -1;
+      background-size: 60px 60px;
+      background-image: url('/assets/splash.svg');
+      @apply absolute w-[60px] h-[60px] z-0 -left-4 -top-[22px];
+    }
+
+    & svg {
+      @apply relative;
+    }
+
+    & svg * {
+      @apply fill-white;
+    }
+  }
+
+  @media screen(sm) {
+    .day-layout {
+      grid-template-areas:
+        'header date routine'
+        'header hoursleep routine'
+        'header todos todos'
+        'header todos todos'
+        'header grateful grateful'
+        'header literswater mood'
+        'header affirmation affirmation';
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media screen(md) {
+    .day-layout {
+      grid-template-areas:
+        'header date routine routine'
+        'header hoursleep routine routine'
+        'header todos todos grateful'
+        'header todos todos grateful'
+        'header todos todos affirmation'
+        'header literswater mood affirmation';
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+}
+
+/* React Day Picker */
+.rdp {
+  --rdp-cell-size: 47px !important;
+}
+
+.rdp-caption .rdp-caption_label {
+  @apply font-display text-xl tracking-wide text-tertiary !px-0;
+}
+
+.rdp-month {
+  @apply min-w-full;
+}
+
+.rdp-button {
+  @apply !rounded-none;
+}
+
+.rdp-row .rdp-cell:first-child button {
+  @apply !rounded-tl-md !rounded-tr-none !rounded-bl-xl !rounded-br-none;
+}
+
+.rdp-row .rdp-cell:last-child button {
+  @apply !rounded-tl-none !rounded-tr-xl !rounded-bl-none !rounded-br-md;
+}
+
+.day-calendar .rdp-row .rdp-cell:first-child button {
+  @apply !rounded-md;
+}
+
+.day-calendar .rdp-row .rdp-cell:last-child button {
+  @apply !rounded-md;
+}
+
+.day-calendar .rdp-cell button {
+  @apply !rounded-md;
+}
+
+.rdp-row:hover .rdp-cell {
+  @apply !bg-gray-200;
+}
+.day-calendar .rdp-row:hover .rdp-cell {
+  @apply !bg-inherit;
+}
+.day-calendar .rdp-day:hover:not(.rdp-day_selected) {
+  @apply !bg-gray-200;
+}
+
+.rdp-row:hover .rdp-cell:first-child {
+  @apply !rounded-tl-md !rounded-tr-none !rounded-bl-xl !rounded-br-none;
+}
+.day-calendar .rdp-row:hover .rdp-cell:first-child {
+  @apply !rounded-md;
+}
+
+.rdp-row:hover .rdp-cell:last-child {
+  @apply !rounded-tl-none !rounded-tr-xl !rounded-bl-none !rounded-br-md;
+}
+.day-calendar .rdp-row:hover .rdp-cell:last-child {
+  @apply !rounded-md;
+}
+
+.rdp-button:hover:not([disabled]):not(.rdp-day_selected) {
+  @apply !bg-inherit;
+}
+.day-calendar .rdp-button:hover:not([disabled]):not(.rdp-day_selected):not(.rdp-nav_button) {
+  @apply !bg-gray-200;
+}
+
+.rdp-day_selected {
+  @apply !bg-primary;
+
+}
+
+.rdp-button .rdp-day_selected:hover {
+  @apply !bg-primary !text-white;
+}
+
+.tiptap {
+  @apply px-2 py-3 transition-all rounded-md font-body focus:outline-none ring-2 ring-slate-200 focus:ring-slate-400;
+
+  & blockquote {
+    @apply p-2 mt-1 italic tracking-wide rounded-md text-slate-700 bg-slate-100 w-fit;
+  }
+  & blockquote p {
+    @apply m-0;
+  }
+
+  & ul {
+    @apply list-disc list-inside;
+
+    & p {
+      @apply inline;
+    }
+  }
+  & ol {
+    @apply list-decimal list-inside;
+
+    & p {
+      @apply inline;
+    }
+  }
+}
